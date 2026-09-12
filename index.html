@@ -1,0 +1,833 @@
+html_animated = """<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solace Aftermath | Hardcore Zombie Survival RP</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Special+Elite&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-main: #0a0b0c;
+            --bg-card: rgba(18, 20, 22, 0.85);
+            --bg-card-hover: rgba(28, 31, 35, 0.95);
+            --accent-red: #8b0000;
+            --blood-bright: #cc2222;
+            --amber: #d97706;
+            --amber-bright: #f59e0b;
+            --text-main: #d1d5db;
+            --text-heading: #f3f4f6;
+            --text-muted: #848d97;
+            --border-color: #262a2e;
+            --font-heading: 'Cinzel', serif;
+            --font-accent: 'Special Elite', cursive, monospace;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.7;
+            background-image: 
+                radial-gradient(circle at 50% 10%, rgba(139, 0, 0, 0.18) 0%, transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(217, 119, 6, 0.08) 0%, transparent 50%),
+                linear-gradient(180deg, rgba(5,5,5,0.85) 0%, rgba(10,11,12,1) 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* AMBIENT PARTICLES (SNOW/ASH EFFECT) */
+        .ambient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.4) 90%);
+        }
+
+        /* NAVIGATION BAR */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 11, 12, 0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: 2px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-logo span {
+            color: var(--blood-bright);
+            animation: pulse-red 2.5s infinite alternate;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--blood-bright);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-heading);
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 120px 20px 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* HERO SECTION WITH ANIMATION */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(139, 0, 0, 0.25);
+            border: 1px solid var(--accent-red);
+            color: var(--blood-bright);
+            font-family: var(--font-accent);
+            padding: 6px 18px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.3);
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--blood-bright);
+            border-radius: 50%;
+            animation: blink 1.2s infinite;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: 3.8rem;
+            color: var(--text-heading);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-shadow: 0 0 25px rgba(139, 0, 0, 0.7);
+            animation: glitch 4s infinite alternate, fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 780px;
+            margin: 0 auto 40px;
+            font-weight: 300;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 34px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--accent-red);
+            color: #ffffff;
+            border: 1px solid var(--blood-bright);
+            box-shadow: 0 0 15px rgba(139, 0, 0, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--blood-bright);
+            box-shadow: 0 0 30px rgba(204, 34, 34, 0.9);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-heading);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-3px);
+        }
+
+        /* SECTION HEADINGS */
+        .section-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            color: var(--text-heading);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* STORY / AKT TIMELINE SECTION */
+        .story-timeline {
+            position: relative;
+            margin: 40px 0 60px;
+            padding-left: 20px;
+        }
+
+        .story-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20px;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(180deg, var(--blood-bright) 0%, var(--amber) 50%, var(--border-color) 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 40px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 11px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: var(--bg-main);
+            border: 3px solid var(--blood-bright);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px var(--blood-bright);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item.active .timeline-dot {
+            background: var(--blood-bright);
+            animation: pulse-dot-glow 1.5s infinite;
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--blood-bright);
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .timeline-tag {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            color: var(--amber-bright);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .timeline-content h3 {
+            font-family: var(--font-heading);
+            color: var(--text-heading);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        /* HIGHLIGHT PHILOSOPHY CARD */
+        .philosophy-card {
+            background: linear-gradient(135deg, rgba(20, 10, 10, 0.95) 0%, rgba(15, 18, 20, 0.95) 100%);
+            border-left: 4px solid var(--blood-bright);
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .philosophy-quote {
+            font-family: var(--font-accent);
+            font-size: 1.35rem;
+            color: #f1f5f9;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* GRID LAYOUTS & SCROLL ANIMATIONS */
+        .grid-2, .grid-3 {
+            display: grid;
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--blood-bright);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(139, 0, 0, 0.25);
+        }
+
+        .card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .card h3 {
+            font-family: var(--font-heading);
+            color: var(--text-heading);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .faction-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-family: var(--font-accent);
+            text-transform: uppercase;
+            padding: 3px 10px;
+            background: rgba(217, 119, 6, 0.15);
+            color: var(--amber);
+            border: 1px solid rgba(217, 119, 6, 0.3);
+            margin-bottom: 12px;
+        }
+
+        /* STEPS ANIMATED */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .step-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 30px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .step-box:hover {
+            border-color: var(--amber);
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            font-family: var(--font-accent);
+            font-size: 2.8rem;
+            color: var(--blood-bright);
+            opacity: 0.7;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .step-box:hover .step-number {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .step-box h4 {
+            color: var(--text-heading);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .step-box p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        /* FAQ ACCORDION */
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            margin-bottom: 15px;
+            padding: 20px 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: #4a525d;
+        }
+
+        .faq-item h4 {
+            color: var(--text-heading);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .faq-item h4::before {
+            content: "✦";
+            color: var(--blood-bright);
+            margin-right: 12px;
+        }
+
+        .faq-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            padding-top: 12px;
+            padding-left: 26px;
+        }
+
+        /* ANIMATION KEYFRAMES */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse-red {
+            0% { text-shadow: 0 0 5px rgba(204, 34, 34, 0.4); }
+            100% { text-shadow: 0 0 18px rgba(204, 34, 34, 0.9); }
+        }
+
+        @keyframes pulse-dot-glow {
+            0% { box-shadow: 0 0 0 0 rgba(204, 34, 34, 0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(204, 34, 34, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(204, 34, 34, 0); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ON-SCROLL REVEAL ANIMATION (JS BACKED) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            background: rgba(5, 5, 5, 0.95);
+            position: relative;
+            z-index: 2;
+        }
+
+        footer p { margin-bottom: 10px; }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--blood-bright); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.4rem; }
+            .hero p { font-size: 1rem; }
+            .nav-links { display: none; }
+            .philosophy-card { padding: 25px; }
+            .story-timeline { padding-left: 10px; }
+            .story-timeline::before { left: 10px; }
+            .timeline-dot { left: 1px; }
+            .timeline-item { padding-left: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-overlay"></div>
+
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">SOLACE <span>AFTERMATH</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">Konzept</a></li>
+                <li><a href="#timeline">Aktuelle Story</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#factions">Fraktionen</a></li>
+                <li><a href="#join">Join Guide</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <!-- HERO SECTION -->
+        <header class="hero">
+            <div class="hero-badge">
+                <span class="pulse-dot"></span> Hardcore Story Driven RP
+            </div>
+            <h1>Solace Aftermath</h1>
+            <p>Kein Standard-Crime. Kein Cop vs. Villain. Pure Überlebensinstinkte, schwere moralische Entscheidungen und unbarmherziges Zombie-Apokalypse-Roleplay.</p>
+            <div class="cta-buttons">
+                <a href="https://discord.gg/dein-server-link" target="_blank" class="btn btn-primary">Discord Beitreten</a>
+                <a href="#timeline" class="btn btn-secondary">Aktuelle Story</a>
+            </div>
+        </header>
+
+        <!-- PHILOSOPHY / ABOUT -->
+        <section id="about" class="philosophy-card reveal">
+            <div class="philosophy-quote">
+                "Es gibt keine Gesetze mehr. Die Polizei schützt dich nicht. Die Zivilisation ist Geschichte. Wenn die Infizierten dich nicht holen, entscheidet dein nächster Schritt, wer du in dieser Dunkelheit bist."
+            </div>
+            <p style="color: var(--text-main);">
+                <strong>Solace Aftermath</strong> bricht bewusst mit den typischen GTA-RP-Klischees. Bei uns gibt es kein stundenlanges Geld-Farmen für Luxusautos oder klischeehafte Bandenkriege um Drogenrouten. Wir bieten ein **postapokalyptisches RP-Erlebnis**, in dem Ressourcen wie sauberes Wasser, Munition und Medizin das höchste Gut sind und jeder Charakter permanent sein Überleben sichern muss.
+            </p>
+        </section>
+
+        <!-- STORY UPDATES & AKTE (NEU!) -->
+        <section id="timeline" class="reveal">
+            <div class="section-header">
+                <h2>Story & Aktuelle Akte</h2>
+                <p>Die Lore des Servers entwickelt sich dynamisch durch die Handlungen der Spieler.</p>
+            </div>
+
+            <div class="story-timeline">
+                
+                <div class="timeline-item active">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-tag">✦ Aktueller Akt (Aktiv)</span>
+                        <h3>Akt I: Der lange Winter & Der Ausbruch</h3>
+                        <p>Ein unerwarteter Kälteeinbruch hat die verbliebenen Vorräte in den Städten unbrauchbar gemacht. Die Horden der Infizierten ziehen in Richtung Süden. Die Überlebenden müssen entscheiden, ob sie sich in der Solace-Enklave zusammenschließen oder gegenseitig um die verbliebenen Vorratslager kämpfen.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-tag">✦ Vorschau / Geplant</span>
+                        <h3>Akt II: Das verlassene Labor</h3>
+                        <p>Funkfrequenzen melden merkwürdige Signale aus dem Sperrgebiet im Norden. Gerüchte über Heilmittel – aber auch über Mutationstypen – machen die Runde. Wer wird das Risiko eingehen und den Anstieg wagen?</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-tag">✦ Rückblick</span>
+                        <h3>Prolog: Der Tag des Kollapses</h3>
+                        <p>Die ersten Infektionen traten in den Ballungsräumen auf. Binnen 72 Stunden brach die Infrastruktur zusammen. Nur wenige schafften den Ausstieg in die ländlichen Regionen um Solace.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FEATURES GRID -->
+        <section id="features" class="reveal">
+            <div class="section-header">
+                <h2>Server Features</h2>
+                <p>Eine Welt, die darauf ausgelegt ist, echtes Survival-Feeling zu erzeugen.</p>
+            </div>
+            <div class="grid-3">
+                <div class="card">
+                    <span class="card-icon">☣️</span>
+                    <h3>Dynamische Horden</h3>
+                    <p>Die Infizierten reagieren auf Geräusche, Licht und Gruppengrößen. Ein unbedachter Schuss kann eine ganze Welle anlocken.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🩸</span>
+                    <h3>Perma-Death System</h3>
+                    <p>Entscheidungen haben echte Konsequenzen. Stirbt dein Charakter durch fahrlässiges Handeln oder Verrat, endet seine Geschichte unwiderruflich.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">📻</span>
+                    <h3>Immersiver Funk</h3>
+                    <p>Kein Map-Radar, kein OOC-Meta. Kommunikation läuft über Funkgeräte mit beschränkter Reichweite und Geräuschentwicklung.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🔧</span>
+                    <h3>Crafting & Scavenging</h3>
+                    <p>Finde Schrott, Bauteile und Medizin. Baue Barrikaden, repariere alte Fahrzeuge oder stelle improvisierte Waffen her.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🌧️</span>
+                    <h3>Extremes Wetter</h3>
+                    <p>Kälte, giftiger Nebel und Regenstürme beeinflussen den Zustand deines Charakters. Sorge für Unterschlupf und Wärme.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🎭</span>
+                    <h3>Deep Character RP</h3>
+                    <p>Fokus auf Storytelling, Traumata, Moral und Beziehungen im Ausnahmezustand statt bloßem Action-PvP.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FACTIONS / SURVIVOR GROUPS -->
+        <section id="factions" class="reveal">
+            <div class="section-header">
+                <h2>Fraktionen & Gruppierungen</h2>
+                <p>Welchen Weg wirst du in der Neuen Welt wählen?</p>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <span class="faction-tag">Revolutions-Garde</span>
+                    <h3>Die Miliz</h3>
+                    <p>Militärisch organisierte Überlebende, die versuchen, Ordnung durch Disziplin und Waffengewalt durchzusetzen. Doch zu welchem Preis?</p>
+                </div>
+                <div class="card">
+                    <span class="faction-tag">Autark & Zivil</span>
+                    <h3>Solace Enklave</h3>
+                    <p>Ein geschützter Zusammenschluss von Handwerkern, Ärzten und Bauern, die versuchen, eine neue Gesellschaft aufzubauen.</p>
+                </div>
+                <div class="card">
+                    <span class="faction-tag">Outlaws & Plünderer</span>
+                    <h3>Die Asche-Sippe</h3>
+                    <p>Rücksichtslose Überlebende, die gelernt haben, dass nur das Recht des Stärkeren gilt. Sie nehmen sich, was sie zum Leben brauchen.</p>
+                </div>
+                <div class="card">
+                    <span class="faction-tag">Einsame Wölfe</span>
+                    <h3>Scavenger & Nomaden</h3>
+                    <p>Keine feste Basis, keine Treueverpflichtungen. Sie ziehen allein durch die Ruinen und handeln mit dem, was sie finden.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW TO JOIN -->
+        <section id="join" class="reveal">
+            <div class="section-header">
+                <h2>In 4 Schritten Überleben</h2>
+                <p>So wirst du Teil der Solace Aftermath Community.</p>
+            </div>
+            <div class="steps-container">
+                <div class="step-box">
+                    <div class="step-number">01</div>
+                    <h4>Discord Join</h4>
+                    <p>Tritt unserem Discord-Server bei und lies dir das Regelwerk aufmerksam durch.</p>
+                </div>
+                <div class="step-box">
+                    <div class="step-number">02</div>
+                    <h4>Konzept Einreichen</h4>
+                    <p>Erstelle ein tiefgründiges Charakterkonzept mit Stärken, Schwächen und Hintergrund.</p>
+                </div>
+                <div class="step-box">
+                    <div class="step-number">03</div>
+                    <h4>Whitelist Gespräch</h4>
+                    <p>Absolviere ein kurzes Gespräch mit unserem Support-Team für das RP-Verständnis.</p>
+                </div>
+                <div class="step-box">
+                    <div class="step-number">04</div>
+                    <h4>Überleben</h4>
+                    <p>Wache in der Zone auf und schreibe die Geschichte deines Charakters.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section id="faq" class="reveal">
+            <div class="section-header">
+                <h2>Häufige Fragen (FAQ)</h2>
+            </div>
+            <div class="faq-item">
+                <h4>Welche Server-Plattform wird genutzt?</h4>
+                <p>Wir nutzen ein stark modifiziertes FiveM Framework mit benutzerdefinierten Map-Assets, Skripten und Survival-Systemen.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Gibt es Pay-to-Win oder Kauf-Vorteile?</h4>
+                <p>Nein. Auf Solace Aftermath sind alle Gegenstände, Waffen und Unterkünfte ausschließlich durch Ingame-Roleplay erreichbar.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Wie funktioniert das Perma-Death System?</h4>
+                <p>Charaktere können in logischen RP-Situationen oder durch extremes eigenes Verschulden sterben. Dies wird in Absprache mit der Moderation fair und transparent bewertet.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Gibt es ein Mindestalter?</h4>
+                <p>Ja, aufgrund der düsteren Thematik und der anspruchsvollen RP-Atmosphäre gilt bei uns ein Mindestalter von 18 Jahren (USK 18).</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Solace Aftermath RP | Hardcore Survival Roleplay Project</p>
+        <p style="font-size: 0.75rem; color: #555;">Dieses Projekt steht in keiner Verbindung zu Rockstar Games oder Take-Two Interactive.</p>
+        <div class="footer-links">
+            <a href="https://discord.gg/dein-server-link" target="_blank">Discord</a>
+            <a href="#">Impressum</a>
+            <a href="#">Datenschutz</a>
+        </div>
+    </footer>
+
+    <!-- LIGHTWEIGHT ANIMATION SCRIPT -->
+    <script>
+        // Scroll Reveal Animation Script
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("load", reveal);
+    </script>
+
+</body>
+</html>
+"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_animated)
+
+print("Updated index.html successfully with story timeline and animations.")

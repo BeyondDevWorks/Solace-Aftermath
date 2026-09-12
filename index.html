@@ -1,4 +1,4 @@
-html_animated = """<!DOCTYPE html>
+html_updated = """<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -51,7 +51,6 @@ html_animated = """<!DOCTYPE html>
             position: relative;
         }
 
-        /* AMBIENT PARTICLES (SNOW/ASH EFFECT) */
         .ambient-overlay {
             position: fixed;
             top: 0;
@@ -148,7 +147,7 @@ html_animated = """<!DOCTYPE html>
             z-index: 2;
         }
 
-        /* HERO SECTION WITH ANIMATION */
+        /* HERO SECTION */
         .hero {
             text-align: center;
             padding: 80px 20px 60px;
@@ -190,7 +189,7 @@ html_animated = """<!DOCTYPE html>
             text-transform: uppercase;
             margin-bottom: 20px;
             text-shadow: 0 0 25px rgba(139, 0, 0, 0.7);
-            animation: glitch 4s infinite alternate, fadeInUp 1s ease-out;
+            animation: fadeInUp 1s ease-out;
         }
 
         .hero p {
@@ -270,78 +269,7 @@ html_animated = """<!DOCTYPE html>
             font-size: 1rem;
         }
 
-        /* STORY / AKT TIMELINE SECTION */
-        .story-timeline {
-            position: relative;
-            margin: 40px 0 60px;
-            padding-left: 20px;
-        }
-
-        .story-timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 20px;
-            height: 100%;
-            width: 2px;
-            background: linear-gradient(180deg, var(--blood-bright) 0%, var(--amber) 50%, var(--border-color) 100%);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 40px;
-            padding-left: 40px;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 11px;
-            top: 5px;
-            width: 20px;
-            height: 20px;
-            background: var(--bg-main);
-            border: 3px solid var(--blood-bright);
-            border-radius: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 10px var(--blood-bright);
-            transition: all 0.3s ease;
-        }
-
-        .timeline-item.active .timeline-dot {
-            background: var(--blood-bright);
-            animation: pulse-dot-glow 1.5s infinite;
-        }
-
-        .timeline-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-content:hover {
-            border-color: var(--blood-bright);
-            transform: translateX(5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-        }
-
-        .timeline-tag {
-            font-family: var(--font-accent);
-            font-size: 0.8rem;
-            color: var(--amber-bright);
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            display: inline-block;
-        }
-
-        .timeline-content h3 {
-            font-family: var(--font-heading);
-            color: var(--text-heading);
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-        }
-
-        /* HIGHLIGHT PHILOSOPHY CARD */
+        /* PHILOSOPHY CARD */
         .philosophy-card {
             background: linear-gradient(135deg, rgba(20, 10, 10, 0.95) 0%, rgba(15, 18, 20, 0.95) 100%);
             border-left: 4px solid var(--blood-bright);
@@ -363,7 +291,174 @@ html_animated = """<!DOCTYPE html>
             position: relative;
         }
 
-        /* GRID LAYOUTS & SCROLL ANIMATIONS */
+        /* PLAYTEST & RELEASE INFO CARD */
+        .playtest-card {
+            background: var(--bg-card);
+            border: 1px solid var(--amber);
+            padding: 35px;
+            margin-bottom: 60px;
+            box-shadow: 0 0 20px rgba(217, 119, 6, 0.15);
+            position: relative;
+        }
+
+        .playtest-card h3 {
+            font-family: var(--font-heading);
+            color: var(--amber-bright);
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .playtest-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .playtest-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            color: var(--text-main);
+        }
+
+        .playtest-list li::before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 0.9rem;
+        }
+
+        /* STORY TIMELINE SECTION */
+        .story-timeline {
+            position: relative;
+            margin: 40px 0 60px;
+            padding-left: 20px;
+        }
+
+        .story-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 20px;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(180deg, var(--amber) 0%, var(--border-color) 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 40px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 11px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: var(--bg-main);
+            border: 3px solid var(--amber);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px var(--amber);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item.coming-soon .timeline-dot {
+            background: var(--amber);
+            animation: pulse-amber-glow 1.8s infinite;
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--amber);
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .timeline-tag {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            color: var(--amber-bright);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .timeline-content h3 {
+            font-family: var(--font-heading);
+            color: var(--text-heading);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        /* TEAM SECTION */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .team-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .team-card:hover {
+            border-color: var(--blood-bright);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.2);
+        }
+
+        .team-role {
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            color: var(--blood-bright);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .team-card h3 {
+            font-family: var(--font-heading);
+            color: var(--text-heading);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .team-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .team-badge {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 3px 10px;
+            background: rgba(139, 0, 0, 0.15);
+            border: 1px solid var(--accent-red);
+            font-size: 0.75rem;
+            color: var(--text-main);
+            font-family: var(--font-accent);
+        }
+
+        /* GRID LAYOUTS & CARDS */
         .grid-2, .grid-3 {
             display: grid;
             gap: 25px;
@@ -424,7 +519,7 @@ html_animated = """<!DOCTYPE html>
             margin-bottom: 12px;
         }
 
-        /* STEPS ANIMATED */
+        /* STEPS */
         .steps-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -470,18 +565,13 @@ html_animated = """<!DOCTYPE html>
             color: var(--text-muted);
         }
 
-        /* FAQ ACCORDION */
+        /* FAQ */
         .faq-item {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             margin-bottom: 15px;
             padding: 20px 25px;
-            cursor: pointer;
             transition: all 0.3s ease;
-        }
-
-        .faq-item:hover {
-            border-color: #4a525d;
         }
 
         .faq-item h4 {
@@ -489,7 +579,6 @@ html_animated = """<!DOCTYPE html>
             font-size: 1.1rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
         }
 
         .faq-item h4::before {
@@ -521,10 +610,10 @@ html_animated = """<!DOCTYPE html>
             100% { text-shadow: 0 0 18px rgba(204, 34, 34, 0.9); }
         }
 
-        @keyframes pulse-dot-glow {
-            0% { box-shadow: 0 0 0 0 rgba(204, 34, 34, 0.7); }
-            70% { box-shadow: 0 0 0 12px rgba(204, 34, 34, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(204, 34, 34, 0); }
+        @keyframes pulse-amber-glow {
+            0% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(217, 119, 6, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
         }
 
         @keyframes blink {
@@ -532,7 +621,6 @@ html_animated = """<!DOCTYPE html>
             50% { opacity: 0.3; }
         }
 
-        /* ON-SCROLL REVEAL ANIMATION (JS BACKED) */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -595,9 +683,10 @@ html_animated = """<!DOCTYPE html>
             <a href="#" class="nav-logo">SOLACE <span>AFTERMATH</span></a>
             <ul class="nav-links">
                 <li><a href="#about">Konzept</a></li>
-                <li><a href="#timeline">Aktuelle Story</a></li>
+                <li><a href="#playtest">Playtest</a></li>
+                <li><a href="#story">Story</a></li>
+                <li><a href="#team">Team</a></li>
                 <li><a href="#features">Features</a></li>
-                <li><a href="#factions">Fraktionen</a></li>
                 <li><a href="#join">Join Guide</a></li>
                 <li><a href="#faq">FAQ</a></li>
             </ul>
@@ -609,13 +698,13 @@ html_animated = """<!DOCTYPE html>
         <!-- HERO SECTION -->
         <header class="hero">
             <div class="hero-badge">
-                <span class="pulse-dot"></span> Hardcore Story Driven RP
+                <span class="pulse-dot"></span> In Entwicklung • Hardcore Survival RP
             </div>
             <h1>Solace Aftermath</h1>
             <p>Kein Standard-Crime. Kein Cop vs. Villain. Pure Überlebensinstinkte, schwere moralische Entscheidungen und unbarmherziges Zombie-Apokalypse-Roleplay.</p>
             <div class="cta-buttons">
                 <a href="https://discord.gg/dein-server-link" target="_blank" class="btn btn-primary">Discord Beitreten</a>
-                <a href="#timeline" class="btn btn-secondary">Aktuelle Story</a>
+                <a href="#playtest" class="btn btn-secondary">Playtest Info</a>
             </div>
         </header>
 
@@ -629,40 +718,75 @@ html_animated = """<!DOCTYPE html>
             </p>
         </section>
 
-        <!-- STORY UPDATES & AKTE (NEU!) -->
-        <section id="timeline" class="reveal">
+        <!-- PLAYTEST SECTION -->
+        <section id="playtest" class="playtest-card reveal">
+            <h3><span>🧪</span> Playtest-Teilnahme & Bedingungen</h3>
+            <p>Der Server befindet sich aktuell noch in der Entwicklung vor dem offiziellen Release. Du hast jedoch die Möglichkeit, an unseren kommenden **Playtests** teilzunehmen und die Survival-Mechaniken vorab zu testen!</p>
+            
+            <ul class="playtest-list">
+                <li><strong>Kein Story-Fortschritt & Keine Spoiler:</strong> Während des Playtests wird noch kein Fortschritt in der Hauptstory erzielt. Der Test ist so aufgebaut, dass du keine Spoiler zur späteren Server-Story befürchten musst.</li>
+                <li><strong>Charakter-Story weiterhin Pflicht:</strong> Da wir ein kompromissloser **Hardcore-Survival-Server** sind und Troller sowie schlechtes RP konsequent ausschließen wollen, musst du dir **auch für den Playtest eine eigene Charakter-Story ausdenken und einreichen**.</li>
+            </ul>
+        </section>
+
+        <!-- STORY / AKTE TIMELINE -->
+        <section id="story" class="reveal">
             <div class="section-header">
-                <h2>Story & Aktuelle Akte</h2>
-                <p>Die Lore des Servers entwickelt sich dynamisch durch die Handlungen der Spieler.</p>
+                <h2>Server Story & Release-Lore</h2>
+                <p>Die offizielle Story ist aktuell noch unter Verschluss – sie folgt zum offiziellen Server-Release!</p>
             </div>
 
             <div class="story-timeline">
                 
-                <div class="timeline-item active">
+                <div class="timeline-item coming-soon">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <span class="timeline-tag">✦ Aktueller Akt (Aktiv)</span>
-                        <h3>Akt I: Der lange Winter & Der Ausbruch</h3>
-                        <p>Ein unerwarteter Kälteeinbruch hat die verbliebenen Vorräte in den Städten unbrauchbar gemacht. Die Horden der Infizierten ziehen in Richtung Süden. Die Überlebenden müssen entscheiden, ob sie sich in der Solace-Enklave zusammenschließen oder gegenseitig um die verbliebenen Vorratslager kämpfen.</p>
+                        <span class="timeline-tag">✦ Zum Release verfügbar</span>
+                        <h3>Akt I: Der Ausbruch & Die Verheerung</h3>
+                        <p>Die offizielle Hintergrundgeschichte und der Auftakt der Server-Lore befinden sich aktuell in der Fertigstellung. Zum offiziellen Release wirst du hier alle Details zum Ausbruch und den Geschehnissen rund um die Solace-Region erfahren.</p>
                     </div>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <span class="timeline-tag">✦ Vorschau / Geplant</span>
-                        <h3>Akt II: Das verlassene Labor</h3>
-                        <p>Funkfrequenzen melden merkwürdige Signale aus dem Sperrgebiet im Norden. Gerüchte über Heilmittel – aber auch über Mutationstypen – machen die Runde. Wer wird das Risiko eingehen und den Anstieg wagen?</p>
+                        <span class="timeline-tag">✦ Zukünftige Verläufe</span>
+                        <h3>Dynamische Lore durch Spielerentscheidungen</h3>
+                        <p>Nach dem Server-Start entwickelt sich die Lore kontinuierlich weiter. Jede Fraktion, jede Entscheidung und jeder gefallene Charakter hinterlässt Spuren in der Welt von Solace Aftermath.</p>
                     </div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-tag">✦ Rückblick</span>
-                        <h3>Prolog: Der Tag des Kollapses</h3>
-                        <p>Die ersten Infektionen traten in den Ballungsräumen auf. Binnen 72 Stunden brach die Infrastruktur zusammen. Nur wenige schafften den Ausstieg in die ländlichen Regionen um Solace.</p>
-                    </div>
+            </div>
+        </section>
+
+        <!-- TEAM SECTION -->
+        <section id="team" class="reveal">
+            <div class="section-header">
+                <h2>Das Projekt-Team</h2>
+                <p>Hinter Solace Aftermath steht leidenschaftliche Entwicklung und Administration.</p>
+            </div>
+
+            <div class="team-grid">
+                
+                <div class="team-card">
+                    <span class="team-role">Projektinhaber & Leitung</span>
+                    <h3>Tobias Polzer</h3>
+                    <p>Gesamtleitung, Projektvision und strategische Entwicklung von Solace Aftermath.</p>
+                    <span class="team-badge">BeyondDevWorks</span>
+                </div>
+
+                <div class="team-card">
+                    <span class="team-role">Development & Technik</span>
+                    <h3>BDW Dev-Team</h3>
+                    <p>Programmierung der Custom-Skripte, Framework-Anpassungen, Systemsicherheit und Performance-Optimierung.</p>
+                    <span class="team-badge">BeyondDevWorks</span>
+                </div>
+
+                <div class="team-card">
+                    <span class="team-role">Story & Moderation</span>
+                    <h3>BDW Support-Team</h3>
+                    <p>Überprüfung der Charakter-Storys, Durchführung der Whitelists und Betreuung der Community.</p>
+                    <span class="team-badge">BeyondDevWorks</span>
                 </div>
 
             </div>
@@ -708,36 +832,6 @@ html_animated = """<!DOCTYPE html>
             </div>
         </section>
 
-        <!-- FACTIONS / SURVIVOR GROUPS -->
-        <section id="factions" class="reveal">
-            <div class="section-header">
-                <h2>Fraktionen & Gruppierungen</h2>
-                <p>Welchen Weg wirst du in der Neuen Welt wählen?</p>
-            </div>
-            <div class="grid-2">
-                <div class="card">
-                    <span class="faction-tag">Revolutions-Garde</span>
-                    <h3>Die Miliz</h3>
-                    <p>Militärisch organisierte Überlebende, die versuchen, Ordnung durch Disziplin und Waffengewalt durchzusetzen. Doch zu welchem Preis?</p>
-                </div>
-                <div class="card">
-                    <span class="faction-tag">Autark & Zivil</span>
-                    <h3>Solace Enklave</h3>
-                    <p>Ein geschützter Zusammenschluss von Handwerkern, Ärzten und Bauern, die versuchen, eine neue Gesellschaft aufzubauen.</p>
-                </div>
-                <div class="card">
-                    <span class="faction-tag">Outlaws & Plünderer</span>
-                    <h3>Die Asche-Sippe</h3>
-                    <p>Rücksichtslose Überlebende, die gelernt haben, dass nur das Recht des Stärkeren gilt. Sie nehmen sich, was sie zum Leben brauchen.</p>
-                </div>
-                <div class="card">
-                    <span class="faction-tag">Einsame Wölfe</span>
-                    <h3>Scavenger & Nomaden</h3>
-                    <p>Keine feste Basis, keine Treueverpflichtungen. Sie ziehen allein durch die Ruinen und handeln mit dem, was sie finden.</p>
-                </div>
-            </div>
-        </section>
-
         <!-- HOW TO JOIN -->
         <section id="join" class="reveal">
             <div class="section-header">
@@ -752,13 +846,13 @@ html_animated = """<!DOCTYPE html>
                 </div>
                 <div class="step-box">
                     <div class="step-number">02</div>
-                    <h4>Konzept Einreichen</h4>
-                    <p>Erstelle ein tiefgründiges Charakterkonzept mit Stärken, Schwächen und Hintergrund.</p>
+                    <h4>Charakter-Story</h4>
+                    <p>Erstelle ein durchdachtes Charakterkonzept (auch für den Playtest Pflicht!).</p>
                 </div>
                 <div class="step-box">
                     <div class="step-number">03</div>
                     <h4>Whitelist Gespräch</h4>
-                    <p>Absolviere ein kurzes Gespräch mit unserem Support-Team für das RP-Verständnis.</p>
+                    <p>Absolviere ein kurzes Gespräch mit dem BDW Support-Team für das RP-Verständnis.</p>
                 </div>
                 <div class="step-box">
                     <div class="step-number">04</div>
@@ -774,20 +868,20 @@ html_animated = """<!DOCTYPE html>
                 <h2>Häufige Fragen (FAQ)</h2>
             </div>
             <div class="faq-item">
-                <h4>Welche Server-Plattform wird genutzt?</h4>
-                <p>Wir nutzen ein stark modifiziertes FiveM Framework mit benutzerdefinierten Map-Assets, Skripten und Survival-Systemen.</p>
+                <h4>Wann startet der Server offiziell?</h4>
+                <p>Der Server befindet sich aktuell in der aktiven Entwicklung. Der genaue Release-Termin sowie die Terminierung der Playtests werden auf unserem Discord angekündigt.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Muss ich für den Playtest eine Charakter-Story schreiben?</h4>
+                <p>Ja! Da wir ein Hardcore-Survival-Server sind und Troller konsequent vermeiden wollen, setzen wir auch für den Playtest ein ausgedachtes Charakterkonzept voraus.</p>
             </div>
             <div class="faq-item">
                 <h4>Gibt es Pay-to-Win oder Kauf-Vorteile?</h4>
                 <p>Nein. Auf Solace Aftermath sind alle Gegenstände, Waffen und Unterkünfte ausschließlich durch Ingame-Roleplay erreichbar.</p>
             </div>
             <div class="faq-item">
-                <h4>Wie funktioniert das Perma-Death System?</h4>
-                <p>Charaktere können in logischen RP-Situationen oder durch extremes eigenes Verschulden sterben. Dies wird in Absprache mit der Moderation fair und transparent bewertet.</p>
-            </div>
-            <div class="faq-item">
                 <h4>Gibt es ein Mindestalter?</h4>
-                <p>Ja, aufgrund der düsteren Thematik und der anspruchsvollen RP-Atmosphäre gilt bei uns ein Mindestalter von 18 Jahren (USK 18).</p>
+                <p>Ja, aufgrund der düsteren Survival-Thematik und der anspruchsvollen RP-Atmosphäre gilt bei uns ein Mindestalter von 18 Jahren (USK 18).</p>
             </div>
         </section>
 
@@ -795,7 +889,7 @@ html_animated = """<!DOCTYPE html>
 
     <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 Solace Aftermath RP | Hardcore Survival Roleplay Project</p>
+        <p>&copy; 2026 Solace Aftermath RP | Developed & Managed by BeyondDevWorks (BDW)</p>
         <p style="font-size: 0.75rem; color: #555;">Dieses Projekt steht in keiner Verbindung zu Rockstar Games oder Take-Two Interactive.</p>
         <div class="footer-links">
             <a href="https://discord.gg/dein-server-link" target="_blank">Discord</a>
@@ -804,9 +898,8 @@ html_animated = """<!DOCTYPE html>
         </div>
     </footer>
 
-    <!-- LIGHTWEIGHT ANIMATION SCRIPT -->
+    <!-- SCRIPT -->
     <script>
-        // Scroll Reveal Animation Script
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -825,9 +918,3 @@ html_animated = """<!DOCTYPE html>
 
 </body>
 </html>
-"""
-
-with open("index.html", "w", encoding="utf-8") as f:
-    f.write(html_animated)
-
-print("Updated index.html successfully with story timeline and animations.")

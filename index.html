@@ -1,4 +1,4 @@
-html_final = """<!DOCTYPE html>
+html_with_logo = """<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
@@ -72,7 +72,7 @@ html_final = """<!DOCTYPE html>
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
             z-index: 1000;
-            padding: 15px 0;
+            padding: 10px 0;
             transition: all 0.3s ease;
         }
 
@@ -87,14 +87,23 @@ html_final = """<!DOCTYPE html>
 
         .nav-logo {
             font-family: var(--font-heading);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 800;
             color: var(--text-heading);
             letter-spacing: 2px;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+        }
+
+        .nav-logo img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--blood-bright);
+            box-shadow: 0 0 10px rgba(204, 34, 34, 0.5);
+            object-fit: cover;
         }
 
         .nav-logo span {
@@ -147,13 +156,30 @@ html_final = """<!DOCTYPE html>
             z-index: 2;
         }
 
-        /* HERO SECTION */
+        /* HERO SECTION WITH LOGO */
         .hero {
             text-align: center;
-            padding: 80px 20px 60px;
+            padding: 60px 20px;
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 60px;
             position: relative;
+        }
+
+        .hero-logo {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 25px;
+            display: block;
+            border-radius: 50%;
+            box-shadow: 0 0 35px rgba(139, 0, 0, 0.6), 0 0 15px rgba(217, 119, 6, 0.3);
+            border: 2px solid var(--border-color);
+            animation: logo-glow 3s infinite alternate, fadeInDown 1s ease-out;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .hero-logo:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 0 50px rgba(204, 34, 34, 0.8), 0 0 25px rgba(245, 158, 11, 0.5);
         }
 
         .hero-badge {
@@ -291,7 +317,7 @@ html_final = """<!DOCTYPE html>
             position: relative;
         }
 
-        /* PLAYTEST & RELEASE INFO CARD */
+        /* PLAYTEST CARD */
         .playtest-card {
             background: var(--bg-card);
             border: 1px solid var(--amber);
@@ -331,7 +357,7 @@ html_final = """<!DOCTYPE html>
             font-size: 0.9rem;
         }
 
-        /* RECRUITMENT / TEAM WANTED CARD */
+        /* RECRUITMENT CARD */
         .recruitment-card {
             background: linear-gradient(135deg, rgba(20, 25, 30, 0.95) 0%, rgba(12, 15, 18, 0.95) 100%);
             border: 1px solid var(--accent-red);
@@ -656,6 +682,11 @@ html_final = """<!DOCTYPE html>
             100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
         }
 
+        @keyframes logo-glow {
+            0% { box-shadow: 0 0 25px rgba(139, 0, 0, 0.5), 0 0 10px rgba(217, 119, 6, 0.2); }
+            100% { box-shadow: 0 0 45px rgba(204, 34, 34, 0.8), 0 0 20px rgba(245, 158, 11, 0.4); }
+        }
+
         @keyframes blink {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.3; }
@@ -704,6 +735,7 @@ html_final = """<!DOCTYPE html>
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.4rem; }
             .hero p { font-size: 1rem; }
+            .hero-logo { width: 160px; height: 160px; }
             .nav-links { display: none; }
             .philosophy-card { padding: 25px; }
             .story-timeline { padding-left: 10px; }
@@ -720,7 +752,10 @@ html_final = """<!DOCTYPE html>
     <!-- NAVIGATION -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="nav-logo">SOLACE <span>AFTERMATH</span></a>
+            <a href="#" class="nav-logo">
+                <img src="bdw_SA_logo.jpg" alt="Solace Aftermath Logo">
+                SOLACE <span>AFTERMATH</span>
+            </a>
             <ul class="nav-links">
                 <li><a href="#about">Konzept</a></li>
                 <li><a href="#playtest">Playtest</a></li>
@@ -736,8 +771,10 @@ html_final = """<!DOCTYPE html>
 
     <div class="container">
         
-        <!-- HERO SECTION -->
+        <!-- HERO SECTION WITH LOGO -->
         <header class="hero">
+            <img src="bdw_SA_logo.jpg" alt="Solace Aftermath Logo" class="hero-logo">
+            
             <div class="hero-badge">
                 <span class="pulse-dot"></span> In Entwicklung • Hardcore Survival RP
             </div>
@@ -770,7 +807,7 @@ html_final = """<!DOCTYPE html>
             </ul>
         </section>
 
-        <!-- RECRUITMENT SECTION (NEU!) -->
+        <!-- RECRUITMENT SECTION -->
         <section id="recruitment" class="recruitment-card reveal">
             <h3><span>🤝</span> Verstärkung gesucht! Werde Teil des BDW-Teams</h3>
             <p>Du möchtest das Projekt **Solace Aftermath** nicht nur bespielen, sondern aktiv mitgestalten und unterstützen? Das BDW-Team sucht aktuell engagierte und freiwillige Helfer, die Lust haben, beim Aufbau der Community mitzuwirken!</p>
